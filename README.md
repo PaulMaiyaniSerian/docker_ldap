@@ -3,8 +3,8 @@
 ## Getting Started
 
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone docker_ldap
+cd docker_ldap
 docker-compose up -d
 ```
 
