@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  ldap:
+    image: osixia/openldap:1.5.0
+    container_name: ldap-server
+    environment:
+      LDAP_ORGANISATION: "LMS"
+      LDAP_DOMAIN: "example.com"
+      LDAP_ADMIN_PASSWORD: "admin_password"
+    ports:
+      - "389:389" # LDAP port
+      - "636:636" # LDAPS port
+    volumes:
+      - ldap-data:/var/lib/ldap
+      - ldap-config:/etc/ldap/slapd.d
+    restart: unless-stopped
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:0.9.0
+    container_name: phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: ldap-server
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "6443:443" # Web interface over HTTPS
+      - "8080:80"  # Web interface over HTTP
+    restart: unless-stopped
+    depends_on:
+      - ldap
+
+volumes:
+  ldap-data:
+  ldap-config:
