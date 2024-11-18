@@ -5,7 +5,7 @@ services:
     image: osixia/openldap:1.5.0
     container_name: ldap-server
     environment:
-      LDAP_ORGANISATION: "LMS"
+      LDAP_ORGANISATION: "my_org"
       LDAP_DOMAIN: "example.com"
       LDAP_ADMIN_PASSWORD: "admin_password"
     ports:
